@@ -1,7 +1,19 @@
 // express準備
 const express = require("express");
 const app = express();
+const mongoose = require("mongoose");
 app.use(express.urlencoded({ extended: true }))
+
+mongoose.connect("mongodb+srv://kingkazuma7:QWEasd123@cluster0.jjuvo.mongodb.net/myFirstDatabase?retryWrites=true&w=majority")
+
+
+  // MongoDBへ接続
+  .then(() => {
+    console.log("Success: Conected to MongoDB");
+  })
+  .catch((error) => {
+    console.error("Failure: Unconnected to MongoDB");
+  })
 
 /* ----- 基本 ----- */
 app.get("/", (req, res) => {
