@@ -4,10 +4,9 @@ const app = express();
 const mongoose = require("mongoose");
 app.use(express.urlencoded({ extended: true }))
 
+
+// MongoDBへ接続
 mongoose.connect("mongodb+srv://kingkazuma7:QWEasd123@cluster0.jjuvo.mongodb.net/myFirstDatabase?retryWrites=true&w=majority")
-
-
-  // MongoDBへ接続
   .then(() => {
     console.log("Success: Conected to MongoDB");
   })
@@ -16,7 +15,7 @@ mongoose.connect("mongodb+srv://kingkazuma7:QWEasd123@cluster0.jjuvo.mongodb.net
   })
 
 
-/* ----- スキーマ ... DBの形&種類 ----- */
+/* ----- スキーマ：DBの形&種類 Defining Schema and Model ----- */
 const Schema = mongoose.Schema
 
 /* ----- DBのデータの各項目 ----- */
@@ -30,17 +29,17 @@ const BlogSchema = new Schema({
 /* ----- Model ----- */
 const BlogModel = mongoose.model("Blog", BlogSchema)
 
-/* ----- 基本 ----- */
+/* ----- BLog function ----- */
 app.get("/", (req, res) => {
   res.send("こんにちは")
 })
 
 /* ----- createディレクトリにアクセスがあったらhtml読み込む ----- */
+/* ----- Create blog ----- */
 app.get("/blog/create", (req, res) => {
   res.sendFile(__dirname + "/views/blogCreate.html")
 })
 
-/* ----- createディレクトリにアクセスがあったらログ ----- */
 app.post("/blog/create", (req, res) => {
   console.log("reqの中身：" , req.body);
   //BlogModelのなかcrudが内蔵（ここでは書き込み）
@@ -54,6 +53,11 @@ app.post("/blog/create", (req, res) => {
     }
   })
 })
+
+/* ----- Read All Blogs ----- */
+/* ----- Read Single Blog ----- */
+/* ----- Update Blog ----- */
+/* ----- Delete Blog ----- */
 
 /* ----- localhost5000接続 ----- */
 app.listen(5000, () => {
